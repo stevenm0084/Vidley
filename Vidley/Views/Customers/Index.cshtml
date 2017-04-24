@@ -1,0 +1,27 @@
+﻿@model  IEnumerable<Vidley.Models.Customer>
+
+@{
+    ViewBag.Title = "Customers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customers</h2>
+
+
+    @if (Model.Any())
+    {
+        <table class="table table-striped">
+            <thead><tr>Customer</tr></thead>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(@customer.Name, "Details", "Customers", new { id = @customer.Id, name = @customer.Name })</td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+    <text>No customers exist in database yet!</text>
+    }
+        
