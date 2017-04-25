@@ -1,4 +1,4 @@
-﻿@model  IEnumerable<Vidley.Models.Customer>
+﻿@model IEnumerable<Vidley.Models.Customer>
 
 @{
     ViewBag.Title = "Customers";
@@ -10,14 +10,20 @@
 
     @if (Model.Any())
     {
-        <table class="table table-striped">
-            <thead><tr>Customer</tr></thead>
-            @foreach (var customer in Model)
-            {
+        <table class="table table-bordered table-hover">
+            <thead>
                 <tr>
-                    <td>@Html.ActionLink(@customer.Name, "Details", "Customers", new { id = @customer.Id, name = @customer.Name })</td>
+                    <th>Customer</th>
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (var customer in Model)
+                {
+                    <tr>
+                        <td>@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id}, null)</td>
+                    </tr>
+                }
+            </tbody>
         </table>
     }
     else

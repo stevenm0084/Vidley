@@ -8,16 +8,21 @@
 
 @if (Model.Any())
 {
-    <table>
+    <table class="table table-bordered table-hover">
         <thead>
-        <tr>Movie</tr>
-        </thead>
-
-        @foreach (var movie in Model) {
             <tr>
-                <td>@movie.Name</td>
+                <th>Movie</th>
+                
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var movie in Model)
+            {
+                <tr>
+                    <td>@movie.Name</td>
+                </tr>
+            }
+        </tbody>
     </table>
 }
 else
