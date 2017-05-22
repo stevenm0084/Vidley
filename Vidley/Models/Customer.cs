@@ -11,16 +11,18 @@ namespace Vidley.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter the customer's name.")]
         public string Name { get; set; }
 
         public bool IsSubscribedToNewsletter { get; set; }
         
         public MembershipType MembershipType { get; set; }
 
+        [Required]
         [Display(Name = "Membership Type")]
         public byte MembershipTypeId { get; set; }
 
+        [Min18YearsIfAMemeber]
         [Display(Name = "Date of Birth")]
         public DateTime? Birthdate { get; set; }
 

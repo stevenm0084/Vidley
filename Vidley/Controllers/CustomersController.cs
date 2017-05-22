@@ -31,16 +31,7 @@ namespace Vidley.Controllers
             return View(customers);
         }
 
-        
-        //public ActionResult Details(int id)
-        //{
-        //    var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
 
-        //    if (customer == null)
-        //        return HttpNotFound();
-
-        //    return View(customer);
-        //}
 
         public ActionResult CustomerForm()
         {
@@ -53,9 +44,35 @@ namespace Vidley.Controllers
             return View("CustomerForm", newCustomerViewModel);
         }
 
+        public ActionResult New()
+        {
+            var membershipTypes = _context.MembershipTypes.ToList();
+            var viewModel = new CustomerFormViewModel
+            {
+                Customer = new Models.Customer(),
+                MembershipTypes = membershipTypes
+            };
+
+            return View("CustomerForm", viewModel);
+        }
+        
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new CustomerFormViewModel
+                {
+                    MembershipTypes = _context.MembershipTypes.ToList(),
+                    Customer = customer
+
+                };
+
+                return View("CustomerForm", viewModel);
+            }
+
             if (customer.Id == 0)
             {
                 _context.Customers.Add(customer);
